@@ -1,0 +1,50 @@
+{
+  "name": "front-end-v1",
+  "version": "1.0.0",
+  "description": "A Quasar Framework app",
+  "productName": "Quasar App",
+  "cordovaId": "org.cordova.quasar.app",
+  "capacitorId": "",
+  "author": "michael <38920570+msolanoimagina@users.noreply.github.com>",
+  "private": true,
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.0.0",
+    "axios": "^0.18.1",
+    "quasar": "^1.0.0",
+    "vue-i18n": "^8.0.0",
+    "@imagina/qblog": "2.x",
+    "@imagina/qcommerce": "2.x",
+    "@imagina/qcrud": "2.x",
+    "@imagina/qhelper": "2.x",
+    "@imagina/qmedia": "2.x",
+    "@imagina/qplace": "2.x",
+    "@imagina/qsite": "2.x",
+    "@imagina/qslider": "2.x",
+    "@imagina/quser": "2.x",
+    "@imagina/qmenu": "2.x",
+    "@imagina/qform": "2.x",
+    "@imagina/qbanner": "1.x",
+    "@riophae/vue-treeselect": "0.0.38",
+    "dotenv": "^6.0.0",
+    "localforage": "^1.7.2",
+    "vue-moment": "^4.0.0",
+    "vue-routisan": "^2.1.2",
+    "vuedraggable": "^2.23.2",
+    "vuelidate": "^0.7.4",
+    "lodash.clonedeep": "~4.5.0"
+  },
+  "devDependencies": {
+    "@quasar/app": "^1.0.0"
+  },
+  "engines": {
+    "node": ">= 8.9.0",
+    "npm": ">= 5.6.0",
+    "yarn": ">= 1.6.0"
+  },
+  "browserslist": [
+    "last 1 version, not dead, ie >= 11"
+  ]
+}
