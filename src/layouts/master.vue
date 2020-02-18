@@ -11,14 +11,14 @@
     </q-page-container>
 
     <!-- FOOTER -->
-    <footer-componen v-if="appState.loadPage" />
+    <footer-component v-if="appState.loadPage" />
   </q-layout>
 </template>
 
 <script>
   /*Components*/
-  import headerComponent from '@imagina/qsite/_components/master/header'
-  import footerComponen from '@imagina/qsite/_components/master/footer'
+  import headerComponent from 'src/components/header'
+  import footerComponent from 'src/components/footer'
 
   export default {
     meta () {
@@ -35,7 +35,7 @@
         link: [{ rel: 'icon', href: iconHref, id: 'icon' }],
       }
     },
-    components: {headerComponent, footerComponen},
+    components: {headerComponent, footerComponent},
     mounted () {
       this.$nextTick(async function () {
       })
@@ -57,3 +57,7 @@
     }
   }
 </script>
+
+<style lang="stylus">
+  @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600&display=swap')
+</style>

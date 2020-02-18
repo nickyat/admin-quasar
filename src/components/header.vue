@@ -1,75 +1,68 @@
 <template>
   <div id="masterHeader">
-    <!-- ============= HEADER ======================= -->
+    <!-- HEADER -->
     <q-header class="no-shadow">
       <q-toolbar color="primary">
-
         <!--= BUTTON MENU =-->
-        <q-btn flat dense round class="q-md-hide"
+        <q-btn flat dense round
                @click="drawer.menu = !drawer.menu"
                aria-label="Menu">
           <q-icon name="menu"/>
         </q-btn>
 
-        <!--Logo-->
-        <router-link :to="{ name: 'app.home'}">
-          <img class="q-md-hide" :src="logo" style="max-height: 30px">
-        </router-link>
-
         <!--= TITLE =-->
-        <q-toolbar-title class="text-center">
-          <!--= MENU =-->
-          <menu-list class="q-hide q-md-show" :show-icons="false"
-                     :menu="menu" id="menuDesktop"/>
+        <q-toolbar-title class="items-center">
+          <!--Toogle Menu-->
+          <q-btn :label="$tr($route.meta.title)" flat
+                 @click="drawer.menu = !drawer.menu"
+                 class="btn-page-title"
+                 :icon="$route.meta.icon"/>
         </q-toolbar-title>
 
-        <!--Right toolbar-->
-        <div class="absolute-right">
-          <!--Facebook-->
-          <q-btn icon="fab fa-facebook" flat round v-if="socialNetworks.facebook"
-                 @click="openUrl(socialNetworks.facebook)"/>
-          <!--Instagram-->
-          <q-btn icon="fab fa-instagram" flat round v-if="socialNetworks.instagram"
-                 @click="openUrl(socialNetworks.instagram)"/>
-          <!--Full Screen-->
-          <q-btn icon="fullscreen" @click="$q.fullscreen.toggle()" flat round/>
-        </div>
-      </q-toolbar>
+        <!--== Button User ==-->
+        <q-no-ssr>
+          <q-btn :to="{name: 'user.profile.me'}" flat no-caps v-if="quserState.authenticated">
+            <q-avatar size="25px">
+              <img :src="quserState.userData.mainImage">
+            </q-avatar>
+            <div class="q-ml-xs">{{quserState.userData.firstName}}</div>
+          </q-btn>
+        </q-no-ssr>
 
-      <!--Sub header-->
-      <div class="text-center bg-white">
-        <!--Logo-->
-        <div class="q-py-sm q-hide q-md-show">
-          <img :src="logo" style="max-height: 150px">
-        </div>
-        <hr class="q-hr q-my-none">
-      </div>
+        <!--== Button Config ==-->
+        <q-btn round dense flat icon="fas fa-cog"
+               @click="drawer.config = !drawer.config">
+        </q-btn>
+      </q-toolbar>
     </q-header>
 
-    <!-- MENU LEFT -->
-    <q-drawer id="menu_master" class="no-shadow q-md-hide" v-model="drawer.menu">
-      <q-list no-border link inset-delimiter>
-        <!-- === LOGO === -->
-        <q-item-section class="text-center">
-          <router-link :to="{ name: 'app.home'}">
-            <a>
-              <img :src="logo" width="90%">
-            </a>
-          </router-link>
-        </q-item-section>
+    <!-- MENU -->
+    <q-drawer bordered id="menu_master" class="no-shadow" v-model="drawer.menu">
+      <!-- === LOGO === -->
+      <div class="text-center q-py-lg full-width">
+        <router-link :to="{ name: 'app.home'}" tag="a">
+          <img class="sidebar-logo" src="statics/imagina-logo.png">
+        </router-link>
+      </div>
 
-        <!--= MENU =-->
-        <menu-list :menu="menu"/>
-      </q-list>
+      <!--= MENU =-->
+      <menu-list :menu="menu"/>
+    </q-drawer>
+
+    <!-- Config -->
+    <q-drawer bordered id="menu_master" :overlay="true" v-model="drawer.config" side="right">
+      <config-list/>
     </q-drawer>
   </div>
 </template>
 <script>
-  import menuList from "@imagina/qsite/_components/master/recursiveItem";
+  import configList from '@imagina/qsite/_components/master/configList'
+  import menuList from '@imagina/qsite/_components/master/recursiveItem'
 
   export default {
     props: {},
     components: {
+      configList,
       menuList
     },
     watch: {},
@@ -79,36 +72,19 @@
     },
     data() {
       return {
-        projectName: 'Test',//this.$store.getters['qsiteSettings/getSettingValueByName']('core::site-name'),
+        projectName: this.$store.getters['qsiteSettings/getSettingValueByName']('core::site-name'),
         drawer: {
-          menu: false
+          menu: false,
+          config: false,
+          notification: false
         },
         menu: config('sidebar'),
-        logo: '',//this.$store.getters['qsiteSettings/getSettingMediaByName']('isite::logo1').path,
-        modal: {
-          show: true,
-          search: ''
-        },
-        phones: [],//this.$store.getters['qsiteSettings/getSettingValueByName']('isite::phones')
+        logo: this.$store.getters['qsiteSettings/getSettingMediaByName']('isite::logo1').path
       }
     },
     computed: {
-      getImageUrl() {
-        return config('apiRoutes.api.base_url') + '/' + this.userData.smallImage;
-      },
-      userData() {
-        return []//this.$store.state.quserAuth.userData
-      },
-      socialNetworks() {
-        let response = {}
-        let socialNetworks = []//this.$store.getters['qsiteSettings/getSettingValueByName']('isite::socialNetworks')
-        //format social networks
-        socialNetworks.forEach(item => {
-          if (item.label == 'facebook') response[item.label] = `https://facebook.com/${item.value}`
-          if (item.label == 'instagram') response[item.label] = `https://instagram.com/${item.value}`
-        })
-
-        return response//Response
+      quserState() {
+        return this.$store.state.quserAuth
       }
     },
     methods: {
@@ -120,32 +96,113 @@
         }
         this.drawer[name] = show//Show only drawer specific
       },
-      //open URL
-      openUrl(url) {
-        window.open(url, '_blank')
-      }
     }
   }
 </script>
 <style lang="stylus">
   #masterHeader
+    img
+      max-width 100% !important
+
+    .q-toolbar-title
+      padding 0 5px
+
+      .btn-page-title
+        padding 5px
+
+        .q-icon
+          background-color white
+          border-radius 50%
+          height 25px
+          width 25px
+          color $primary
+          font-size 15px
+          padding 5px
+          margin-right 5px
+          transition .5s
+
+          &.on-right
+            margin-left 5px
+          @media screen and (max-width: $breakpoint-xs)
+            display none
+
+        &.menu-openend
+          .q-icon
+            transform rotate(90deg)
+
     .q-layout-drawer-delimiter
       box-shadow $shadow-1
 
-    .q-toolbar
-      #menuDesktop
+    .button-profile-image
+      height 25px
+      width 25px
+      border-radius 50%
+      background-repeat no-repeat
+      background-position center
+      background-size cover
+      margin-right 5px
+
+    .q-drawer
+      width 240px !important
+      background-color #263238 !important
+
+    #listMenu
+      margin-top 8px
+
+      hr
+        display none
+
+      .q-item
+        font-family 'Source Sans Pro', sans-serif
+        font-size 16px
+        color rgba(255, 255, 255, 0.5)
+        background-color transparent
+        padding 11px 23px 11px 26px
+        transition all 0.3s ease-out
+
+        &:hover
+          color rgba(255, 255, 255, 0.8)
+
+          .q-icon
+            color rgba(255, 255, 255, 0.8)
+
+          .q-focus-helper
+            background-color transparent
+
+            &:before,
+            &:after
+              display none
+
+        &.item-is-active
+          background-color #222d32
+          color rgba(255, 255, 255, 0.8)
+
+          .q-item__section, .q-icon
+            color white
+
+        .q-icon
+          color rgba(255, 255, 255, 0.5)
+
+      .q-item__section--avatar
+        margin-right 9px
+
+      .q-expansion-item__content
+        padding 0 0 0 7px
+
+        #listMenu
+          margin-top 0
+
         .q-item
-          display inline-block
-          border 0px !important
+          font-size 15px
+          padding-top 6px
+          padding-bottom 6px
 
-          .q-item-main
-            font-size 17px !important
+        .q-icon
+          font-size 15px
 
-          &.router-link-active
-            background transparent !important
+      .expansion-selected
+        background-color $primary
 
-            .q-item-main
-              transition .1s
-              padding-bottom 3px
-              border-bottom 2px solid white
+    .sidebar-logo
+      height 28px
 </style>
