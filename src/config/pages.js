@@ -2,23 +2,24 @@ import corePages from '@imagina/qsite/_config/master/pages'//Core pages [Do not 
 
 let responsePages = {
   ...corePages,
-  //Add here more pages...#example
-  /*groupName : {
-    routeName: {//Page home
+  page: {
+    home: {
       permission: null,
       activated: true,
-      path: '/home',
-      name: 'route.name',
-      layout: () => import('path'),
-      page: () => import('path'),
-      title: 'route.title',
-      icon: 'icon name',
-      authenticated: Boolean
-    }
-  }*/
+      path: '/',
+      name: 'app.home',
+      layout: () => import('src/layouts/master'),
+      page: () => import('pages/index.vue'),
+      title: 'sidebar.pageHome',
+      icon: 'fas fa-home',
+      authenticated: true
+    },
+  }
 }
 
 //======= Add or update pages
 //#example: responsePages.<title-page> = <'title'>
 
 export default responsePages
+
+responsePages.qblog.posts.layout= () => import('src/layouts/master')
