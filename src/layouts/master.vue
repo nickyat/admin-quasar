@@ -1,12 +1,12 @@
 <template>
-  <q-layout view="hhh LpR lFr">
+  <q-layout view="lHh LpR lff" class="bg-grey-1">
     <!-- HEADER -->
     <header-component v-if="appState.loadPage" />
 
     <!-- ROUTER VIEW -->
     <q-page-container>
       <q-pull-to-refresh @refresh="refreshPage">
-        <router-view v-if="appState.loadPage"/>
+        <router-view v-if="appState.loadPage" class="layout-padding"/>
       </q-pull-to-refresh>
     </q-page-container>
 
@@ -17,8 +17,8 @@
 
 <script>
   /*Components*/
-  import headerComponent from 'src/components/header'
-  import footerComponen from 'src/components/footer'
+  import headerComponent from '@imagina/qsite/_components/master/header'
+  import footerComponen from '@imagina/qsite/_components/master/footer'
 
   export default {
     meta () {
