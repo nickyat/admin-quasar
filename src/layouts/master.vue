@@ -59,5 +59,10 @@
 </script>
 
 <style lang="stylus">
-  @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600&display=swap')
+  @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Roboto:500&display=swap')
+
+  /***** Media Queries *****/
+  @media screen and (min-width: 1024px)
+    .q-page-container
+      padding-left 240px !important
 </style>
