@@ -34,7 +34,7 @@
     background-color $white
     border-top 1px solid rgba(0, 0, 0, 0.05)
     padding 20px 30px
-    color $text-dark
+    color $text-brand-dark
     font-size 14px
     letter-spacing 0.42px
 

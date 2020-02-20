@@ -135,7 +135,7 @@
               transform rotate(90deg)
 
     .q-layout__section--marginal
-      color $text-dark
+      color $text-brand-dark
 
     .q-layout-drawer-delimiter
       box-shadow $shadow-1
@@ -153,7 +153,7 @@
           display none
 
         .q-item
-          font-family 'Source Sans Pro', sans-serif
+          font-family $font-secondary
           font-size 16px
           color rgba(255, 255, 255, 0.5)
           background-color transparent
@@ -218,14 +218,14 @@
           padding-bottom 50px
 
         #configList
-          font-family 'Source Sans Pro', sans-serif
-          color $text-dark
+          font-family $font-secondary
+          color $text-brand-dark
 
           .text-primary, .text-negative
-            color $text-dark !important
+            color $text-brand-dark !important
 
           .title-block
-            background-color $bg-dark !important
+            background-color $bg-brand-dark !important
 
 
   /***** Media Queries *****/
