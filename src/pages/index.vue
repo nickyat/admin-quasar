@@ -139,13 +139,87 @@
         </div>
       </div>
     </div>
+
+    <div class="row row-expand">
+      <div class="col-12 col-xl-4 col-padding">
+        <div class="card card--general">
+          <h6 class="card__title">Latest Messages</h6>
+          <div class="inbox-widget">
+            <a class="inbox-widget__item" href="#">
+              <img class="inbox-widget__item-avatar" src="statics/users/avatar-1.jpg" alt="Author Avatar">
+              <div class="column">
+                <p class="inbox-widget__item-author">Didier Charpentier</p>
+                <p class="inbox-widget__item-message">Hey! there I'm available...</p>
+              </div>
+              <span class="inbox-widget__item-date">13:40 PM</span>
+            </a>
+            <a class="inbox-widget__item" href="#">
+              <img class="inbox-widget__item-avatar" src="statics/users/avatar-2.jpg" alt="Author Avatar">
+              <div class="column">
+                <p class="inbox-widget__item-author">Sacripant Laderoute</p>
+                <p class="inbox-widget__item-message">I've finished it! See you so...</p>
+              </div>
+              <span class="inbox-widget__item-date">13:34 PM</span>
+            </a>
+            <a class="inbox-widget__item" href="#">
+              <img class="inbox-widget__item-avatar" src="statics/users/avatar-3.jpg" alt="Author Avatar">
+              <div class="column">
+                <p class="inbox-widget__item-author">Huon Chalifour</p>
+                <p class="inbox-widget__item-message">This theme is awesome!</p>
+              </div>
+              <span class="inbox-widget__item-date">13:17 PM</span>
+            </a>
+            <a class="inbox-widget__item" href="#">
+              <img class="inbox-widget__item-avatar" src="statics/users/avatar-4.jpg" alt="Author Avatar">
+              <div class="column">
+                <p class="inbox-widget__item-author">Paien Barrientos</p>
+                <p class="inbox-widget__item-message">Nice to meet you</p>
+              </div>
+              <span class="inbox-widget__item-date">12:20 PM</span>
+            </a>
+            <a class="inbox-widget__item" href="#">
+              <img class="inbox-widget__item-avatar" src="statics/users/avatar-5.jpg" alt="Author Avatar">
+              <div class="column">
+                <p class="inbox-widget__item-author">Aubrey St-Jean</p>
+                <p class="inbox-widget__item-message">Hey! there I'm available...</p>
+              </div>
+              <span class="inbox-widget__item-date">10:15 PM</span>
+            </a>
+            <a class="inbox-widget__item" href="#">
+              <img class="inbox-widget__item-avatar" src="statics/users/avatar-6.jpg" alt="Author Avatar">
+              <div class="column">
+                <p class="inbox-widget__item-author">Maurice Monty</p>
+                <p class="inbox-widget__item-message">This theme is awesome!</p>
+              </div>
+              <span class="inbox-widget__item-date">9:56 AM</span>
+            </a>
+          </div>
+          <div class="text-center q-mt-md">
+            <q-btn unelevated no-caps color="blue-4" label="Load More" class="card__btn" />
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-xl-4 col-padding">
+        <div class="card card--general">
+          <h6 class="card__title">Recent Activity Feed</h6>
+
+        </div>
+      </div>
+      <div class="col-12 col-xl-4 col-padding">
+        <div class="row row-expand">
+          <div class="col col-padding">
+
+          </div>
+        </div>
+      </div>
+    </div>
   </q-page>
 </template>
 
 <script>
-export default {
-  name: 'PageIndex'
-}
+  export default {
+    name: 'PageIndex'
+  }
 </script>
 
 <style lang="stylus">
@@ -165,7 +239,7 @@ export default {
       &__title
         font-size 16px
         line-height 22px
-        margin 0 0 5px 0
+        margin 0 0 15px 0
 
       &__number
         font-family $font-secondary
@@ -200,4 +274,42 @@ export default {
         .card__number-digit
           font-weight 500
           margin 4px 0 7px
+
+    .inbox-widget
+      &__item
+        position relative
+        display flex
+        align-items center
+        font-family $font-secondary
+        border-bottom 1px solid #f1f1f1
+        padding 10px 0
+
+      &__item-avatar
+        width 40px
+        border-radius 50%
+        margin-right 15px
+
+      &__item-author
+        color #333
+        font-size 16px
+        margin 0
+
+      &__item-message
+        color #a0a0a0
+        font-size 12px
+        margin 0
+
+      &__item-date
+        color #a9a9a9
+        font-size 11px
+        position absolute
+        right 7px
+        top 2px
+
+    .q-btn
+      font 400 14px $font-secondary
+
+      &__wrapper
+        min-height 31px
+        padding 4px 8px
 </style>
