@@ -142,7 +142,7 @@
 
     <div class="row row-expand">
       <div class="col-12 col-xl-4 col-padding">
-        <div class="card card--general">
+        <div class="card">
           <h6 class="card__title">Latest Messages</h6>
           <div class="inbox-widget">
             <a class="inbox-widget__item" href="#">
@@ -200,15 +200,90 @@
         </div>
       </div>
       <div class="col-12 col-xl-4 col-padding">
-        <div class="card card--general">
+        <div class="card">
           <h6 class="card__title">Recent Activity Feed</h6>
-
+          <ol class="activity-feed">
+            <li class="activity-feed__item">
+              <span class="activity-feed__item-date">Sep 25</span>
+              <span class="activity-feed__item-description">Responded to need “Volunteer Activities”</span>
+            </li>
+            <li class="activity-feed__item">
+              <span class="activity-feed__item-date">Sep 24</span>
+              <span class="activity-feed__item-description">Added an interest “Volunteer Activities”</span>
+            </li>
+            <li class="activity-feed__item">
+              <span class="activity-feed__item-date">Sep 23</span>
+              <span class="activity-feed__item-description">Joined the group “Boardsmanship Forum”</span>
+            </li>
+            <li class="activity-feed__item">
+              <span class="activity-feed__item-date">Sep 21</span>
+              <span class="activity-feed__item-description">Responded to need “In-Kind Opportunity”</span>
+            </li>
+            <li class="activity-feed__item">
+              <span class="activity-feed__item-date">Sep 18</span>
+              <span class="activity-feed__item-description">Created need “Volunteer Activities”</span>
+            </li>
+            <li class="activity-feed__item">
+              <span class="activity-feed__item-date">Sep 17</span>
+              <span class="activity-feed__item-description">Attending the event “Some New Event”</span>
+            </li>
+          </ol>
+          <div class="text-center">
+            <q-btn unelevated no-caps color="blue-4" label="Load More" class="card__btn" />
+          </div>
         </div>
       </div>
       <div class="col-12 col-xl-4 col-padding">
         <div class="row row-expand">
-          <div class="col col-padding">
-
+          <div class="col-12 col-padding">
+            <div class="card">
+              <div class="social-info">
+                <img class="social-info__avatar" src="statics/users/avatar-2.jpg" alt="User Avatar">
+                <div class="social-info__content">
+                  <h5 class="social-info__name">Pauline I. Bird</h5>
+                  <p class="text-muted q-mb-md">Webdeveloper</p>
+                  <ul class="social-info__links">
+                    <li class="social-info__links-item">
+                      <a href="" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    </li>
+                    <li class="social-info__links-item">
+                      <a href="" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    </li>
+                    <li class="social-info__links-item">
+                      <a href="" title="Phone Number"><i class="fas fa-phone-alt"></i></a>
+                    </li>
+                    <li class="social-info__links-item">
+                      <a href="" title="Skype"><i class="fab fa-skype"></i></a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-padding">
+            <div class="card">
+              <div class="social-info">
+                <img class="social-info__avatar" src="statics/users/avatar-3.jpg" alt="User Avatar">
+                <div class="social-info__content">
+                  <h5 class="social-info__name">Ralph L. Alva</h5>
+                  <p class="text-muted q-mb-md">Webdeveloper</p>
+                  <ul class="social-info__links">
+                    <li class="social-info__links-item">
+                      <a href="" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    </li>
+                    <li class="social-info__links-item">
+                      <a href="" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    </li>
+                    <li class="social-info__links-item">
+                      <a href="" title="Phone Number"><i class="fas fa-phone-alt"></i></a>
+                    </li>
+                    <li class="social-info__links-item">
+                      <a href="" title="Skype"><i class="fab fa-skype"></i></a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -306,10 +381,85 @@
         right 7px
         top 2px
 
+    .activity-feed
+      font-family $font-secondary
+      padding 15px 15px 0
+
+      &__item
+        position relative
+        display flex
+        flex-direction column
+        border-left 2px solid #e4e8eb
+        padding 0 0 20px 30px
+
+        &:before
+          pseudo()
+          top 0
+          left -6px
+          width 10px
+          height 10px
+          border-radius 50%
+          background $white
+          border 1px solid #67a8e4
+
+        &:last-child
+          border-color transparent
+
+      &__item-date
+        position relative
+        top -5px
+        color #8c96a3
+        text-transform uppercase
+        font-size 13px
+
+      &__item-description
+        position relative
+        top -3px
+        color $text-brand-dark
+        font-size 16px
+
     .q-btn
       font 400 14px $font-secondary
 
       &__wrapper
         min-height 31px
         padding 4px 8px
+
+    .social-info
+      display flex
+
+      &__avatar
+        width 88px
+        height 88px
+        background-color $white
+        border-radius 50%
+        border 1px solid #dee2e6
+        padding 4px
+        margin-right 16px
+
+      &__name
+        font-size 18px
+        font-weight 500
+        line-height 22px
+        margin 0 0 4px
+
+      &__links
+        display flex
+
+      &__links-item
+        line-height 0
+        margin-right 8px
+
+        a
+          position relative
+          display inline-block
+          background #f8f8f8
+          border-radius 50%
+          color #9f9f9f
+          width 30px
+          height 30px
+          line-height 30px
+
+          i
+            absolute-center()
 </style>

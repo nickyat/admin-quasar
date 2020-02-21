@@ -9,12 +9,27 @@ $font-primary = 'Roboto', sans-serif
 $font-secondary = 'Source Sans Pro', sans-serif
 
 .text-muted
-	color #707070
+  color #707070
 
 .row-expand
-	margin-left -10px
-	margin-right -10px
+  margin-left -10px
+  margin-right -10px
 
 .col-padding
-	padding-left 10px
-	padding-right 10px
+  padding-left 10px
+  padding-right 10px
+
+pseudo()
+  position absolute
+  content ''
+
+absolute-center()
+  position absolute
+  left 50%
+  top 50%
+  transform translate(-50%, -50%)
+
+ul, ol
+  padding 0
+  margin 0
+  list-style-type none
