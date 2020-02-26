@@ -117,6 +117,8 @@
               </div>
             </div>
           </div>
+
+          <browser-sessions/>
         </div>
       </div>
       <div class="col-12 col-xl-3 col-padding">
@@ -292,8 +294,13 @@
 </template>
 
 <script>
+  import browserSessions from '@imagina/qanalytics/_components/admin/google-analytics/BrowserSessions'
+
   export default {
-    name: 'PageIndex'
+    name: 'PageIndex',
+    components: {
+      browserSessions
+    }
   }
 </script>
 
