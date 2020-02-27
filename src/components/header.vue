@@ -19,12 +19,36 @@
                  class="btn-page-title"/>
         </q-toolbar-title>
 
+        <!-- Search Button -->
+        <q-btn flat class="q-toolbar__item q-toolbar__btn-search">
+          <q-icon name="fas fa-search" color="grey-7" size="19px"></q-icon>
+        </q-btn>
+
+        <!--Full Screen-->
+        <q-item clickable class="q-toolbar__item q-toolbar__fullscreen" @click.native="toggleFullscreen()">
+          <q-item-section avatar>
+            <q-icon color="grey-7" size="19px" name="fas fa-expand"/>
+          </q-item-section>
+        </q-item>
+
+        <!-- ===== Language ===== -->
+        <q-select :options="options.locales" dense emit-value map-options
+                  filter v-if="show.locales" @input="updateLocale"
+                  v-model="locale" class="q-toolbar__item q-toolbar__lang-switch q-if-focused q-if-focusable"/>
+        <!-- <q-btn-dropdown no-caps flat color="primary" :label="options.locales[0].label">
+          <q-item clickable v-close-popup @click="onItemClick">
+            <q-item-section>
+              <q-item-label>English</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-btn-dropdown> -->
+
         <!--== Button User ==-->
         <q-no-ssr>
-          <!-- <q-btn :to="{name: 'user.profile.me'}" flat no-caps v-if="quserState.authenticated"> -->
+          <!-- <q-btn :to="{name: 'user.profile.me'}" flat no-caps v-if="quserState.authenticated">Perfil</q-btn> -->
           <q-btn flat no-caps v-if="quserState.authenticated"
                  @click="drawer.config = !drawer.config"
-                 class="btn-user">
+                 class="q-toolbar__item q-toolbar__btn-user">
             <q-avatar size="36px">
               <img :src="quserState.userData.mainImage">
             </q-avatar>
@@ -59,8 +83,7 @@
   </div>
 </template>
 <script>
-  //import configList from 'src/components/master/configList'
-  import configList from '@imagina/qsite/_components/master/configList'
+  import configList from 'src/components/master/configList'
   import menuList from '@imagina/qsite/_components/master/recursiveItem'
 
   export default {
@@ -77,11 +100,19 @@
     data() {
       return {
         projectName: this.$store.getters['qsiteSettings/getSettingValueByName']('core::site-name'),
+        locale: this.$store.state.qsiteSettings.defaultLocale,
         drawer: {
           menu: true,
           config: false,
           notification: false
         },
+        options: {
+          locales: this.$store.getters['qsiteSettings/getSelectedLocalesSelect']
+        },
+        show: {
+          locales: true
+        },
+        fullScreen: this.$q.fullscreen.isActive,
         menu: config('sidebar'),
         logo: this.$store.getters['qsiteSettings/getSettingMediaByName']('isite::logo1').path
       }
@@ -100,9 +131,22 @@
         }
         this.drawer[name] = show//Show only drawer specific
       },
+
+      //Toggle fullscreen
+      toggleFullscreen () {
+        this.$q.fullscreen.toggle()
+      },
+
+      //update Locale
+      async updateLocale () {
+        this.$store.dispatch('qsiteSettings/SET_LOCALE', { locale: this.locale, vue: this }).then(response => {
+          this.$store.dispatch('app/REFRESH_PAGE')
+        })
+      }
     }
   }
 </script>
+
 <style lang="stylus">
   @import "~src/css/app.styl"
 
@@ -122,17 +166,40 @@
     .q-toolbar
       min-height 70px
 
-      .q-toolbar__title
+      &__title
         padding 0 5px
 
         .btn-page-title
           font-size 20px
           text-transform capitalize
-          padding 5px
+
+          .q-btn__wrapper
+            padding 4px 10px
 
           &.menu-openend
             .q-icon
               transform rotate(90deg)
+
+      &__item
+        &:not(:last-child)
+          padding 0 16px
+          margin-right 8px
+
+      &__btn-search
+        .q-btn__wrapper
+          padding 0
+
+      &__fullscreen
+        .q-item__section
+          padding-right 0 !important
+
+      &__lang-switch
+        font-family $font-secondary
+        font-size 16px
+
+        .q-field__control:before,
+        .q-field__append
+          display none
 
     .q-layout__section--marginal
       color $text-brand-dark
@@ -157,7 +224,7 @@
           font-size 16px
           color rgba(255, 255, 255, 0.5)
           background-color transparent
-          padding 11px 23px 11px 26px
+          padding 12px 23px 12px 26px
           transition all 0.3s ease-out
 
           &:hover
@@ -185,14 +252,15 @@
 
         .q-expansion-item__content
           padding 0 0 0 7px
+          border-left none
 
           #listMenu
             margin-top 0
 
           .q-item
             font-size 15px
-            padding-top 6px
-            padding-bottom 6px
+            padding-top 10px
+            padding-bottom 10px
 
           .q-icon
             font-size 15px
@@ -205,7 +273,7 @@
 
     .config-menu
       .q-drawer
-        width 295px !important
+        width 250px !important
         right 5px
         bottom initial
         background-color $white !important

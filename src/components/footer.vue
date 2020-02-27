@@ -31,6 +31,10 @@
   @import "~src/css/app.styl"
 
   #footer
+    position absolute
+    right 0
+    left 0
+    bottom 0
     background-color $white
     border-top 1px solid rgba(0, 0, 0, 0.05)
     padding 20px 30px
@@ -40,5 +44,5 @@
 
     /***** Media Queries *****/
     @media screen and (min-width: 1024px)
-      margin-left 240px
+      left 240px
 </style>

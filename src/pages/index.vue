@@ -308,7 +308,8 @@
   @import "~src/css/app.styl"
 
   .q-page
-    padding 30px 25px 40px !important
+    padding 30px 25px 20px !important
+    margin-bottom 60px
 
     .card
       background-color $white
