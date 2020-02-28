@@ -1,9 +1,12 @@
 @import url('~@imagina/qsite/_css/globalStyle.styl');//Core styles [Do not remove]
 //Set Global style...
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Roboto:400,500&display=swap')
 
 $white = #fff
 $text-brand-dark = #212529
 $bg-brand-dark = #263238
+$brand-green = #4ac18e
+$brand-blue = #67a8e4
 
 $font-primary = 'Roboto', sans-serif
 $font-secondary = 'Source Sans Pro', sans-serif
@@ -33,3 +36,25 @@ ul, ol
   padding 0
   margin 0
   list-style-type none
+
+/***** Form Elements *****/
+.q-field
+  font-family $font-secondary
+  font-size 16px
+
+.q-btn
+  font-family $font-secondary !important
+  font-size 16px !important
+  text-transform initial
+
+  &__wrapper:before
+    display none
+
+  &.bg-positive
+    background $brand-green !important
+
+  &.bg-info
+    background $brand-blue !important
+
+  .q-icon
+    font-size 16px

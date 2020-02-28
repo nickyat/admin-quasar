@@ -142,7 +142,7 @@
       },
       quserState () {
         return this.$store.state.quserAuth
-      },
+      }
     },
     methods: {
       //Set departments and roles to options
