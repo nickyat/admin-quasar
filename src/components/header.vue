@@ -151,6 +151,10 @@
       margin-bottom 20px
       box-shadow 0 2px 3px -2px rgba(0, 0, 0, 0.15)
 
+    .btn-menu
+      i
+        font-size 24px
+
     img
       max-width 100% !important
 
@@ -164,7 +168,8 @@
         padding 0 5px
 
         .btn-page-title
-          font-size 20px
+          font-family $font-primary !important
+          font-size 20px !important
           text-transform capitalize
 
           .q-btn__wrapper
