@@ -47,11 +47,6 @@
             <!-- <div class="q-ml-xs">{{quserState.userData.firstName}}</div> -->
           </q-btn>
         </q-no-ssr>
-
-        <!--== Button Config ==-->
-       <!--  <q-btn round dense flat icon="fas fa-cog"
-               @click="drawer.config = !drawer.config">
-        </q-btn> -->
       </q-toolbar>
     </q-header>
 

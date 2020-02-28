@@ -10,7 +10,6 @@
           <q-item-section>Perfil</q-item-section>
         </q-item>
 
-        <!--Settings-->
         <!--Select Role-->
         <q-item class="q-py-none">
           <div class="full-width text-primary">

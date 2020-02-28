@@ -76,42 +76,6 @@
     padding 30px 25px 20px
     margin-bottom 60px
 
-  #authLoginRegister
-    --q-color-primary initial !important
-
-    .q-card
-      padding 40px 30px 25px
-
-    .q-tab
-      text-transform initial
-      pointer-events none
-
-      .q-focus-helper
-        display none
-
-      &__label
-        color $text-brand-dark
-        font-size 18px
-        font-weight 500
-
-      &__indicator
-        display none
-
-    .q-separator
-      display none
-
-    .q-icon
-      font-size 16px
-
-    button.q-btn
-      display table
-      margin 0 auto
-      background $brand-blue !important
-
-    a.q-btn
-      .q-focus-helper
-        display none
-
   #pageLogout
     .row.shadow-3
       background $white
