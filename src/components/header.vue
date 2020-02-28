@@ -35,17 +35,9 @@
         <q-select :options="options.locales" dense emit-value map-options
                   filter v-if="show.locales" @input="updateLocale"
                   v-model="locale" class="q-toolbar__item q-toolbar__lang-switch q-if-focused q-if-focusable"/>
-        <!-- <q-btn-dropdown no-caps flat color="primary" :label="options.locales[0].label">
-          <q-item clickable v-close-popup @click="onItemClick">
-            <q-item-section>
-              <q-item-label>English</q-item-label>
-            </q-item-section>
-          </q-item>
-        </q-btn-dropdown> -->
 
         <!--== Button User ==-->
         <q-no-ssr>
-          <!-- <q-btn :to="{name: 'user.profile.me'}" flat no-caps v-if="quserState.authenticated">Perfil</q-btn> -->
           <q-btn flat no-caps v-if="quserState.authenticated"
                  @click="drawer.config = !drawer.config"
                  class="q-toolbar__item q-toolbar__btn-user">
@@ -151,6 +143,8 @@
   @import "~src/css/app.styl"
 
   #masterHeader
+    --q-color-primary initial !important
+
     .q-header
       background-color $white
       border none
@@ -213,6 +207,21 @@
         background-color #263238 !important
         border-right 0
 
+        &__content
+          padding-bottom 50px
+
+      .q-drawer::-webkit-scrollbar
+        background-color $white
+        width 16px
+
+        &-track
+          border-radius 10px
+          background-color #fff
+
+        &-thumb
+          border-radius 16px
+          background-color #babac0
+
       #listMenu
         margin-top 8px
 
@@ -229,6 +238,7 @@
 
           &:hover
             color rgba(255, 255, 255, 0.8)
+            background-color transparent
 
             .q-icon
               color rgba(255, 255, 255, 0.8)
@@ -237,6 +247,9 @@
               &:after
                 display none
 
+          .q-icon
+            color rgba(255, 255, 255, 0.5)
+
           &.item-is-active
             background-color #222d32
             color rgba(255, 255, 255, 0.8)
@@ -244,7 +257,11 @@
             .q-item__section, .q-icon
               color white
 
-          .q-icon
+        .q-expansion-item__content .item-is-active
+          background-color transparent
+          color color rgba(255, 255, 255, 0.5)
+
+          .q-item__section, .q-icon
             color rgba(255, 255, 255, 0.5)
 
         .q-item__section--avatar
@@ -252,7 +269,7 @@
 
         .q-expansion-item__content
           padding 0 0 0 7px
-          border-left none
+          border-left none !important
 
           #listMenu
             margin-top 0
@@ -273,28 +290,14 @@
 
     .config-menu
       .q-drawer
-        width 250px !important
+        width 225px !important
         right 5px
         bottom initial
         background-color $white !important
         border 1px solid rgba(0, 0, 0, 0.15)
         border-radius 4px
         box-shadow 0 3px 12px rgba(0, 0, 0, 0.05)
-        padding 0px 8px
-
-        .q-drawer__content
-          padding-bottom 50px
-
-        #configList
-          font-family $font-secondary
-          color $text-brand-dark
-
-          .text-primary, .text-negative
-            color $text-brand-dark !important
-
-          .title-block
-            background-color $bg-brand-dark !important
-
+        padding 4px 0
 
   /***** Media Queries *****/
   @media screen and (min-width: 1024px)

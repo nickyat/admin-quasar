@@ -61,6 +61,11 @@
 <style lang="stylus">
   @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Roboto:400,500&display=swap')
 
+  body
+    --q-color-primary #263238 !important
+    --q-color-secondary initial !important
+    --q-color-tertiary initial !important
+
   /***** Media Queries *****/
   @media screen and (min-width: 1024px)
     .q-page-container

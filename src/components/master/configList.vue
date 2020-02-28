@@ -2,119 +2,112 @@
   <div id="configList">
     <!-- ===== User logged as ===== -->
     <q-no-ssr>
-      <div class="q-px-sm q-pt-sm" v-if="quserState.authenticated">
-        <!--Title Loges as-->
-        <div class="title-block">
-          {{$tr('ui.configList.loggedAs', {capitalize : true})}}
-        </div>
+      <div v-if="quserState.authenticated">
+        <q-item tag="label" link :to="{name: 'user.profile.me'}" v-if="quserState.authenticated">
+          <q-item-section avatar>
+            <q-icon name="fas fa-user-circle" size="12px"/>
+          </q-item-section>
+          <q-item-section>Perfil</q-item-section>
+        </q-item>
 
         <!--Settings-->
-        <div class="q-py-sm">
-          <!--Select Role-->
-          <q-item class="q-py-none">
-            <div class="full-width text-primary">
-              <q-icon name="fas fa-user-tag" size="12px" class="q-mr-xs"/>
-              {{$tr('ui.label.role' , {capitalize : true})}}
-              <label v-if="!show.roles" class="block ellipsis text-grey-8">
-                {{options.roles[0].label}}
-              </label>
-              <q-select :options="options.roles" dense filter v-else outlined outlined emit-value map-options
-                        v-model="roleId" class="full-width q-mt-xs" @input="updateDepRolUser"/>
-            </div>
-          </q-item>
-
-          <!--Select Department-->
-          <q-item class="q-py-none relative-position">
-            <div class="full-width q-mt-sm text-primary">
-              <q-icon name="fas fa-user-shield" size="12px" class="q-mr-xs"/>
-              {{$tr('ui.label.department', {capitalize : true})}}
-              <label v-if="!show.departments" class="block ellipsis text-grey-8">
-                {{options.departments[0].label}}
-              </label>
-              <q-select :options="options.departments" dense filter v-else outlined emit-value map-options
-                        v-model="departmentId" class="full-width q-mt-xs" @input="updateDepRolUser"/>
-            </div>
-          </q-item>
-
-          <!--Impersonate-->
-          <div v-if="$auth.hasAccess('profile.user.impersonate') || quserState.impersonating">
-            <q-separator class="q-my-sm"/>
-
-            <!--Select User to impersonate-->
-            <q-item class="q-py-none" v-if="!quserState.impersonating">
-              <div class="full-width text-primary">
-                <q-icon name="fas fa-user-secret" size="12px" class="q-mr-sm"></q-icon>
-                {{$tr('ui.label.impersonate')}}
-                <!--Select-->
-                <div class="q-mt-xs" v-if="!loadingImpersonate">
-                  <q-select outlined dense v-model="userToImpersonate" use-input hide-selected
-                            emit-value map-options
-                            input-debounce="800" :options="userList" @filter="getUsers"
-                            :placeholder="`${$tr('ui.label.find')} ${$tr('ui.label.user')}...`"
-                            @input="impersonate()" style="width: 100%">
-                    <template v-slot:no-option>
-                      <q-item>
-                        <q-item-section class="text-grey">
-                          {{$tr('ui.message.searchNotFound')}}
-                        </q-item-section>
-                      </q-item>
-                    </template>
-                  </q-select>
-                </div>
-                <!--Loading-->
-                <div v-if="loadingImpersonate" class="q-py-sm">
-                  <q-spinner class="q-mr-sm"/>
-                  {{`${$tr('ui.label.loading')}...`}}
-                </div>
-              </div>
-            </q-item>
-
-            <!--Leave impersonating-->
-            <q-item tag="label" link v-else @click.native="impersonate">
-              <q-item-section avatar>
-                <!--Icon-->
-                <q-icon v-if="!loadingImpersonate" color="negative" name="fas fa-sign-out-alt" size="15px"/>
-                <!--Loading-->
-                <div v-if="loadingImpersonate" class="q-py-sm">
-                  <q-spinner class="q-mr-sm"/>
-                  {{`${$tr('ui.label.loading')}...`}}
-                </div>
-              </q-item-section>
-              <q-item-section>
-                <q-item-label v-if="!loadingImpersonate" color="grey-10" style="text-decoration: none">
-                  {{$t('ui.configList.leaveImpersonating', {capitalize : true})}}
-                </q-item-label>
-              </q-item-section>
-            </q-item>
+        <!--Select Role-->
+        <q-item class="q-py-none">
+          <div class="full-width text-primary">
+            <q-icon name="fas fa-user-tag" size="12px" class="q-mr-xs"/>
+            {{$tr('ui.label.role' , {capitalize : true})}}
+            <label v-if="!show.roles" class="block ellipsis text-grey-8">
+              {{options.roles[0].label}}
+            </label>
+            <q-select :options="options.roles" dense filter v-else outlined outlined emit-value map-options
+                      v-model="roleId" class="full-width q-mt-xs" @input="updateDepRolUser"/>
           </div>
+        </q-item>
+
+        <!--Select Department-->
+        <q-item class="q-py-none relative-position">
+          <div class="full-width text-primary">
+            <q-icon name="fas fa-user-shield" size="12px" class="q-mr-xs"/>
+            {{$tr('ui.label.department', {capitalize : true})}}
+            <label v-if="!show.departments" class="block ellipsis text-grey-8">
+              {{options.departments[0].label}}
+            </label>
+            <q-select :options="options.departments" dense filter v-else outlined emit-value map-options
+                      v-model="departmentId" class="full-width q-mt-xs" @input="updateDepRolUser"/>
+          </div>
+        </q-item>
+
+        <!--Impersonate-->
+        <div v-if="$auth.hasAccess('profile.user.impersonate') || quserState.impersonating">
+          <!--Select User to impersonate-->
+          <q-item class="q-py-none" v-if="!quserState.impersonating">
+            <div class="full-width text-primary">
+              <q-icon name="fas fa-user-secret" size="12px" class="q-mr-sm"></q-icon>
+              {{$tr('ui.label.impersonate')}}
+              <!--Select-->
+              <div class="q-mt-xs" v-if="!loadingImpersonate">
+                <q-select outlined dense v-model="userToImpersonate" use-input hide-selected
+                          emit-value map-options
+                          input-debounce="800" :options="userList" @filter="getUsers"
+                          :placeholder="`${$tr('ui.label.find')} ${$tr('ui.label.user')}...`"
+                          @input="impersonate()" style="width: 100%">
+                  <template v-slot:no-option>
+                    <q-item>
+                      <q-item-section class="text-grey">
+                        {{$tr('ui.message.searchNotFound')}}
+                      </q-item-section>
+                    </q-item>
+                  </template>
+                </q-select>
+              </div>
+              <!--Loading-->
+              <div v-if="loadingImpersonate" class="q-py-sm">
+                <q-spinner class="q-mr-sm"/>
+                {{`${$tr('ui.label.loading')}...`}}
+              </div>
+            </div>
+          </q-item>
+
+          <!--Leave impersonating-->
+          <q-item tag="label" link v-else @click.native="impersonate">
+            <q-item-section avatar>
+              <!--Icon-->
+              <q-icon v-if="!loadingImpersonate" color="negative" name="fas fa-sign-out-alt" size="15px"/>
+              <!--Loading-->
+              <div v-if="loadingImpersonate" class="q-py-sm">
+                <q-spinner class="q-mr-sm"/>
+                {{`${$tr('ui.label.loading')}...`}}
+              </div>
+            </q-item-section>
+            <q-item-section>
+              <q-item-label v-if="!loadingImpersonate" color="grey-10" style="text-decoration: none">
+                {{$t('ui.configList.leaveImpersonating', {capitalize : true})}}
+              </q-item-label>
+            </q-item-section>
+          </q-item>
         </div>
       </div>
     </q-no-ssr>
 
-    <!-- ===== Settings ===== -->
-    <div class="q-px-sm">
-      <!--Separator-->
-      <q-separator class="q-my-sm"/>
+    <!--Logout  -->
+    <q-no-ssr>
+      <q-item tag="label" link :to="{name:'auth.logout'}" v-if="quserState.authenticated">
+        <q-item-section avatar>
+          <q-icon color="red-7" name="fas fa-power-off" size="12px"/>
+        </q-item-section>
+        <q-item-section>
+          {{$t('ui.configList.signOut', {capitalize : true})}}
+        </q-item-section>
+      </q-item>
+    </q-no-ssr>
 
-      <!--Logout  -->
-      <q-no-ssr>
-        <q-item tag="label" link :to="{name:'auth.logout'}" v-if="quserState.authenticated">
-          <q-item-section avatar>
-            <q-icon color="red-7" name="fas fa-power-off" size="12px"/>
-          </q-item-section>
-          <q-item-section>
-            {{$t('ui.configList.signOut', {capitalize : true})}}
-          </q-item-section>
-        </q-item>
-      </q-no-ssr>
-    </div>
-
-    <div class="text-subtitle2 fixed fixed-bottom text-primary q-px-md q-py-sm text-right">
+    <!-- <div class="text-subtitle2 fixed fixed-bottom text-primary q-px-md q-py-sm text-right">
       <q-icon name="fas fa-code-branch" class="q-mr-xs"/>
       {{versionText}}
-    </div>
+    </div> -->
   </div>
 </template>
+
 <script>
   export default {
     props: {},
@@ -228,16 +221,20 @@
     }
   }
 </script>
+
 <style lang="stylus">
+  @import "~src/css/app.styl"
+
   #configList
-    color $grey-9
+    .q-item
+      font-family $font-secondary
+      font-size 15px
+      color $text-brand-dark
+      padding 6px 24px
+
+      &--clickable:hover
+        background-color #f8f9fa
 
     .q-icon
       min-width max-content !important
-
-    .title-block
-      border-radius 5px
-      background-color $primary
-      color white
-      padding 4px 15px
 </style>
