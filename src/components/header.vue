@@ -62,7 +62,8 @@
         <!-- ===== Language ===== -->
         <q-select :options="options.locales" dense emit-value map-options
                   filter v-if="show.locales" @input="updateLocale"
-                  v-model="locale" class="q-toolbar__item q-toolbar__lang-switch q-if-focused q-if-focusable"/>
+                  v-model="locale"
+                  class="q-toolbar__item q-toolbar__lang-switch q-if-focused q-if-focusable"/>
 
         <!--== Button User ==-->
         <q-no-ssr>
@@ -409,6 +410,9 @@
         box-shadow 0 3px 12px rgba(0, 0, 0, 0.05)
         padding 4px 0
 
+        &__backdrop
+          background-color transparent !important
+
   /***** Media Queries *****/
   @media screen and (min-width: 1024px)
     #masterHeader
@@ -417,4 +421,17 @@
 
       .btn-menu
         display none
+
+  @media screen and (max-width: 1023px)
+    #masterHeader
+      .config-menu
+        .q-drawer
+          margin-top 70px
+
+  @media screen and (max-width: $breakpoint-sm)
+    #masterHeader
+      .q-toolbar
+        &__fullscreen,
+        &__lang-switch
+          display none
 </style>

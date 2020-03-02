@@ -88,6 +88,34 @@
       </div>
     </q-no-ssr>
 
+    <!--Data language-->
+    <q-item class="lang-switch">
+      <div class="text-primary">
+        <q-icon name="fas fa-language"/>
+        {{$tr('ui.label.language', {capitalize : true})}}
+
+        <!--Select Language-->
+        <q-select :options="options.locales" outlined dense outlined emit-value map-options
+                  filter hide-underline v-if="show.locales" @input="updateLocale"
+                  v-model="locale" class="full-width q-if-focused q-if-focusable"/>
+
+        <!--Current language selected-->
+        <label v-else class="block ellipsis">
+          {{options.locales[0].label}}
+        </label>
+      </div>
+    </q-item>
+
+    <!--Full Screen-->
+    <q-item clickable class="fullscreen-switch" @click.native="toggleFullscreen()">
+      <q-item-section avatar>
+        <q-icon color="primary" size="14px" name="fas fa-expand"/>
+      </q-item-section>
+      <q-item-section>
+        {{$t('ui.configList.fullScreen', {capitalize : true})}}
+      </q-item-section>
+    </q-item>
+
     <!--Logout  -->
     <q-no-ssr>
       <q-item tag="label" link :to="{name:'auth.logout'}" v-if="quserState.authenticated">
@@ -122,14 +150,18 @@
         valueConsistsOf: 'BRANCH_PRIORITY',
         roleId: false,
         departmentId: false,
+        locale: this.$store.state.qsiteSettings.defaultLocale,
         options: {
           roles: this.$store.getters['quserAuth/userRolesSelect'],
           departments: this.$store.getters['quserAuth/userDepartmentsSelect'],
+          locales: this.$store.getters['qsiteSettings/getSelectedLocalesSelect']
         },
         show: {
           roles: false,
           departments: false,
+          locales: false
         },
+        fullScreen: this.$q.fullscreen.isActive,
         userToImpersonate: null,
         loadingImpersonate: false,
         userList: []
@@ -144,6 +176,11 @@
       }
     },
     methods: {
+      //Toggle fullscreen
+      toggleFullscreen () {
+        this.$q.fullscreen.toggle()
+      },
+
       //Set departments and roles to options
       async setOptions () {
         let roleUser = await this.$cache.get.item('auth.role.id')//Get role form storage
@@ -180,6 +217,13 @@
           await this.$cache.set('auth.role.id', this.roleId)
           this.$store.dispatch('app/REFRESH_PAGE')
         }
+      },
+
+      //update Locale
+      async updateLocale () {
+        this.$store.dispatch('qsiteSettings/SET_LOCALE', { locale: this.locale, vue: this }).then(response => {
+          this.$store.dispatch('app/REFRESH_PAGE')
+        })
       },
 
       //Get users to impersonate
@@ -240,4 +284,10 @@
     .search-impersonate
       min-height 0
       padding 0
+
+  /***** Media Queries *****/
+  @media screen and (min-width: $breakpoint-sm)
+    .lang-switch,
+    .fullscreen-switch
+      display none
 </style>
