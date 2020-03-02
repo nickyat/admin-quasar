@@ -39,12 +39,12 @@
         <!--Impersonate-->
         <div v-if="$auth.hasAccess('profile.user.impersonate') || quserState.impersonating">
           <!--Select User to impersonate-->
-          <q-item class="q-py-none" v-if="!quserState.impersonating">
-            <div class="full-width text-primary">
+          <q-item class="search-impersonate" v-if="!quserState.impersonating">
+            <!-- <div class="full-width text-primary">
               <q-icon name="fas fa-user-secret" size="12px" class="q-mr-sm"></q-icon>
-              {{$tr('ui.label.impersonate')}}
+              {{$tr('ui.label.impersonate')}} -->
               <!--Select-->
-              <div class="q-mt-xs" v-if="!loadingImpersonate">
+              <!-- <div class="q-mt-xs" v-if="!loadingImpersonate">
                 <q-select outlined dense v-model="userToImpersonate" use-input hide-selected
                           emit-value map-options
                           input-debounce="800" :options="userList" @filter="getUsers"
@@ -58,13 +58,13 @@
                     </q-item>
                   </template>
                 </q-select>
-              </div>
+              </div> -->
               <!--Loading-->
-              <div v-if="loadingImpersonate" class="q-py-sm">
+              <!-- <div v-if="loadingImpersonate" class="q-py-sm">
                 <q-spinner class="q-mr-sm"/>
                 {{`${$tr('ui.label.loading')}...`}}
               </div>
-            </div>
+            </div>-->
           </q-item>
 
           <!--Leave impersonating-->
@@ -236,4 +236,8 @@
 
     .q-icon
       min-width max-content !important
+
+    .search-impersonate
+      min-height 0
+      padding 0
 </style>

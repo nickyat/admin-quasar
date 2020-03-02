@@ -20,9 +20,37 @@
         </q-toolbar-title>
 
         <!-- Search Button -->
-        <q-btn flat class="q-toolbar__item q-toolbar__btn-search">
+        <q-btn flat class="q-toolbar__item q-toolbar__btn-search" @click="toggleSearch">
           <q-icon name="fas fa-search" color="grey-7" size="19px"></q-icon>
         </q-btn>
+
+        <!--Select-->
+        <q-slide-transition>
+          <div class="row q-toolbar__search-wrapper" v-if="!loadingImpersonate" v-show="searchVisibility">
+            <q-select dense v-model="userToImpersonate" use-input hide-selected
+                      emit-value map-options
+                      input-debounce="800" :options="userList" @filter="getUsers"
+                      :placeholder="`${$tr('ui.label.find')} ${$tr('ui.label.user')}...`"
+                      @input="impersonate()"
+                      class="q-toolbar__search-select">
+              <template v-slot:no-option>
+                <q-item>
+                  <q-item-section class="text-grey">
+                    {{$tr('ui.message.searchNotFound')}}
+                  </q-item-section>
+                </q-item>
+              </template>
+            </q-select>
+            <q-btn flat class="q-px-sm" @click="toggleSearch">
+              <q-icon name="fas fa-times-circle" color="grey-7" size="20px"></q-icon>
+            </q-btn>
+          </div>
+        </q-slide-transition>
+        <!--Loading-->
+        <div v-if="loadingImpersonate" class="q-py-sm">
+          <q-spinner class="q-mr-sm"/>
+          {{`${$tr('ui.label.loading')}...`}}
+        </div>
 
         <!--Full Screen-->
         <q-item clickable class="q-toolbar__item q-toolbar__fullscreen" @click.native="toggleFullscreen()">
@@ -99,9 +127,13 @@
         show: {
           locales: true
         },
+        searchVisibility: false,
         fullScreen: this.$q.fullscreen.isActive,
         menu: config('sidebar'),
-        logo: this.$store.getters['qsiteSettings/getSettingMediaByName']('isite::logo1').path
+        logo: this.$store.getters['qsiteSettings/getSettingMediaByName']('isite::logo1').path,
+        userToImpersonate: null,
+        loadingImpersonate: false,
+        userList: []
       }
     },
     computed: {
@@ -119,6 +151,11 @@
         this.drawer[name] = show//Show only drawer specific
       },
 
+      //Toggle Search
+      toggleSearch () {
+        this.searchVisibility = !this.searchVisibility
+      },
+
       //Toggle fullscreen
       toggleFullscreen () {
         this.$q.fullscreen.toggle()
@@ -129,6 +166,42 @@
         this.$store.dispatch('qsiteSettings/SET_LOCALE', { locale: this.locale, vue: this }).then(response => {
           this.$store.dispatch('app/REFRESH_PAGE')
         })
+      },
+
+      //Get users to impersonate
+      getUsers (val, update, abort) {
+        //Validate length of val
+        if (val.length < 2) return abort()
+
+        let params = { params: { take: 100, filter: { search: val } } }
+        //Request
+        this.$crud.index('apiRoutes.quser.users', params).then(response => {
+          update(() => {
+            let userId = this.$store.state.quserAuth.userId
+            let options = []
+            response.data.forEach(item => {
+              if (item.id != userId) options.push({ label: item.fullName, value: item.id })
+            })
+            this.userList = this.$clone(options)
+          })
+        }).catch(error => {
+          update(() => {
+            this.userList = []
+          })
+        })
+      },
+
+      //toggle impersonate
+      async impersonate () {
+        this.loadingImpersonate = true
+
+        if (this.quserState.impersonating) {
+          await this.$store.dispatch('quserAuth/USER_LEAVE_IMPERSONATE')
+        } else if (this.userToImpersonate) {
+          await this.$store.dispatch('quserAuth/USER_IMPERSONATE', this.userToImpersonate)
+        }
+
+        this.loadingImpersonate = false
       }
     }
   }
@@ -182,6 +255,43 @@
       &__btn-search
         .q-btn__wrapper
           padding 0
+
+      &__search-wrapper
+        position absolute
+        left 0
+        width 100%
+        height 70px
+        background-color $white
+        padding 10px 15px
+        z-index 99
+
+        .q-field
+          flex 1 1
+
+          &__control
+            &:before
+              display none
+
+          &__input
+            &::-webkit-input-placeholder
+              color #acacac
+
+            &:-moz-placeholder
+              color #acacac
+
+            &::-moz-placeholder
+              color #acacac
+
+            &::-ms-input-placeholder
+              color #acacac
+
+        .q-btn
+          .q-btn__wrapper
+            padding 0
+
+          &:hover
+            .q-icon
+              color #ea553d !important
 
       &__fullscreen
         .q-item__section
