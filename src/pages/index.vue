@@ -92,6 +92,8 @@
               </div>
             </div>
           </div>
+
+          <views-and-pages :startDate="startDate" :endDate="endDate"/>
         </div>
       </div>
       <div class="col-12 col-xl-6 col-padding">
@@ -118,7 +120,7 @@
             </div>
           </div>
 
-          <browser-sessions/>
+          <browser-sessions :startDate="startDate" :endDate="endDate"/>
         </div>
       </div>
       <div class="col-12 col-xl-3 col-padding">
@@ -138,6 +140,8 @@
               </div>
             </div>
           </div>
+
+          <most-visited-pages :startDate="startDate" :endDate="endDate"/>
         </div>
       </div>
     </div>
@@ -294,12 +298,49 @@
 </template>
 
 <script>
-  import browserSessions from '@imagina/qanalytics/_components/admin/google-analytics/BrowserSessions'
+  import viewsAndPages from '@imagina/qanalytics/_components/admin/google-analytics/viewsAndPages'
+  import deviceSessions from '@imagina/qanalytics/_components/admin/google-analytics/deviceSessions'
+  import browserSessions from '@imagina/qanalytics/_components/admin/google-analytics/browserSessions'
+  import mostVisitedPages from '@imagina/qanalytics/_components/admin/google-analytics/mostVisitedPages'
 
   export default {
     name: 'PageIndex',
     components: {
-      browserSessions
+      viewsAndPages,
+      deviceSessions,
+      browserSessions,
+      mostVisitedPages
+    },
+    data() {
+      return {
+        success:false,
+        month1: null,
+        month1End: null,
+        month2: null,
+        month2End: null,
+        startDate: this.$moment().format('YYYY-MM-DD'),
+        endDate: this.$moment().format('YYYY-MM-DD'),
+        today: this.$moment().format('YYYY-MM-DD')
+      }
+    },
+    mounted() {
+      this.$nextTick(function () {
+        this.init()
+      })
+    },
+    methods: {
+      async init() {
+        this.month1 = this.$moment().subtract(1, 'month').startOf('month').format('YYYY-MM-') + "01"
+        this.month1End = this.$clone(this.$moment(this.month1).add(1, 'month').format('YYYY-MM-DD HH:mm'))
+        this.month2 = this.$moment().subtract(2, 'month').startOf('month').format('YYYY-MM-') + "01"
+        this.month2End = this.$clone(this.$moment(this.month2).add(1, 'month').format('YYYY-MM-DD HH:mm'))
+        this.success = true
+        console.warn(this.month2, this.month1)
+      },
+      getDates(initDate, endDate = this.$moment().format('YYYY-MM-DD')) {
+        this.startDate = initDate;
+        this.endDate = endDate;
+      }
     }
   }
 </script>
