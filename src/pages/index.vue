@@ -3,56 +3,30 @@
     <div class="row row-expand">
       <div class="col-12 col-md-6 col-xl-3 col-padding">
         <div class="card card--minichart">
-          <div class="row justify-between">
-            <i class="fas fa-chart-pie card__chart-icon text-info"></i>
-            <div class="card__number">
-              <span class="card__number-digit text-info">9541</span>
-              Total Sales
-            </div>
-          </div>
-          <p class="row justify-between card__income text-muted q-mb-none">
-            Total income: $22506
-            <span>
-              <i class="fa fa-caret-up q-mr-xs"></i>
-              10.25%
-            </span>
-          </p>
+
+        <chart :options="chartOptions" style=" height:320px;"/>
+
         </div>
       </div>
       <div class="col-12 col-md-6 col-xl-3 col-padding">
         <div class="card card--minichart">
-          <div class="row justify-between">
-            <i class="fas fa-chart-pie card__chart-icon text-green"></i>
-            <div class="card__number">
-              <span class="card__number-digit text-lime-8">36521</span>
-              New Orders
-            </div>
-          </div>
-          <p class="row justify-between card__income text-muted q-mb-none">
-            Total income: $22506
-            <span>
-              <i class="fa fa-caret-up q-mr-xs"></i>
-              10.25%
-            </span>
-          </p>
+
+          <order-status-history />
+
         </div>
       </div>
       <div class="col-12 col-md-6 col-xl-3 col-padding">
         <div class="card card--minichart">
-          <div class="row justify-between">
-            <i class="fas fa-chart-pie card__chart-icon text-red-7"></i>
-            <div class="card__number">
-              <span class="card__number-digit text-red">6521</span>
-              New Users
+          <div class="row items-center bg-teal full-height">
+            <div class="col-5 bg-teal-8 full-height">
+              <div class="row full-height justify-center items-center text-white text-h5">
+                {{soldProducts.length}}
+              </div>
+            </div>
+            <div class="col-7">
+              <div class="q-pl-md text-white q-py-md">Productos <br>Vendidos</div>
             </div>
           </div>
-          <p class="row justify-between card__income text-muted q-mb-none">
-            Total income: $22506
-            <span>
-              <i class="fa fa-caret-up q-mr-xs"></i>
-              10.25%
-            </span>
-          </p>
         </div>
       </div>
       <div class="col-12 col-md-6 col-xl-3 col-padding">
@@ -74,74 +48,26 @@
       </div>
     </div>
 
-    <div class="row row-expand">
+    <div class="row row-expand items-stretch">
       <div class="col-12 col-xl-3 col-padding">
         <div class="card card--general">
-          <h6 class="card__title">Monthly Earnings</h6>
-          <div class="row row-expand text-center q-mt-lg">
-            <div class="col-6 col-padding">
-              <div class="card__number">
-                <span class="card__number-digit">56241</span>
-                <span class="text-muted">Marketplace</span>
-              </div>
-            </div>
-            <div class="col-6 col-padding">
-              <div class="card__number">
-                <span class="card__number-digit">23651</span>
-                <span class="text-muted">Total Income</span>
-              </div>
-            </div>
-          </div>
 
-          <views-and-pages :startDate="startDate" :endDate="endDate"/>
+          <browser-sessions :startDate="startDate" :endDate="endDate"/>
+
         </div>
       </div>
       <div class="col-12 col-xl-6 col-padding">
         <div class="card card--general">
-          <h6 class="card__title">Email Sent</h6>
-          <div class="row row-expand text-center q-mt-lg">
-            <div class="col-4 col-padding">
-              <div class="card__number">
-                <span class="card__number-digit">56241</span>
-                <span class="text-muted">Marketplace</span>
-              </div>
-            </div>
-            <div class="col-4 col-padding">
-              <div class="card__number">
-                <span class="card__number-digit">23651</span>
-                <span class="text-muted">Total Income</span>
-              </div>
-            </div>
-            <div class="col-4 col-padding">
-              <div class="card__number">
-                <span class="card__number-digit">23651</span>
-                <span class="text-muted">Last Month</span>
-              </div>
-            </div>
-          </div>
 
-          <browser-sessions :startDate="startDate" :endDate="endDate"/>
+          <most-visited-pages :startDate="startDate" :endDate="endDate"/>
+
         </div>
       </div>
       <div class="col-12 col-xl-3 col-padding">
         <div class="card card--general">
-          <h6 class="card__title">Monthly Earnings</h6>
-          <div class="row row-expand text-center q-mt-lg">
-            <div class="col-6 col-padding">
-              <div class="card__number">
-                <span class="card__number-digit">56241</span>
-                <span class="text-muted">Marketplace</span>
-              </div>
-            </div>
-            <div class="col-6 col-padding">
-              <div class="card__number">
-                <span class="card__number-digit">23651</span>
-                <span class="text-muted">Total Income</span>
-              </div>
-            </div>
-          </div>
 
-          <most-visited-pages :startDate="startDate" :endDate="endDate"/>
+          <views-and-pages :startDate="startDate" :endDate="endDate"/>
+
         </div>
       </div>
     </div>
@@ -208,85 +134,33 @@
       <div class="col-12 col-xl-4 col-padding">
         <div class="card">
           <h6 class="card__title">Recent Activity Feed</h6>
-          <ol class="activity-feed">
-            <li class="activity-feed__item">
-              <span class="activity-feed__item-date">Sep 25</span>
-              <span class="activity-feed__item-description">Responded to need “Volunteer Activities”</span>
-            </li>
-            <li class="activity-feed__item">
-              <span class="activity-feed__item-date">Sep 24</span>
-              <span class="activity-feed__item-description">Added an interest “Volunteer Activities”</span>
-            </li>
-            <li class="activity-feed__item">
-              <span class="activity-feed__item-date">Sep 23</span>
-              <span class="activity-feed__item-description">Joined the group “Boardsmanship Forum”</span>
-            </li>
-            <li class="activity-feed__item">
-              <span class="activity-feed__item-date">Sep 21</span>
-              <span class="activity-feed__item-description">Responded to need “In-Kind Opportunity”</span>
-            </li>
-            <li class="activity-feed__item">
-              <span class="activity-feed__item-date">Sep 18</span>
-              <span class="activity-feed__item-description">Created need “Volunteer Activities”</span>
-            </li>
-            <li class="activity-feed__item">
-              <span class="activity-feed__item-date">Sep 17</span>
-              <span class="activity-feed__item-description">Attending the event “Some New Event”</span>
-            </li>
-          </ol>
-          <div class="text-center">
-            <q-btn unelevated no-caps color="blue-4" label="Load More" class="card__btn" />
-          </div>
+
+          <notification />
+
         </div>
       </div>
       <div class="col-12 col-xl-4 col-padding">
         <div class="row row-expand">
-          <div class="col-12 col-padding">
+          <div class="col-12 col-padding" v-for="user in followers">
             <div class="card">
-              <div class="social-info">
-                <img class="social-info__avatar" src="statics/users/avatar-2.jpg" alt="User Avatar">
-                <div class="social-info__content">
-                  <h5 class="social-info__name">Pauline I. Bird</h5>
-                  <p class="text-muted q-mb-md">Webdeveloper</p>
-                  <ul class="social-info__links">
-                    <li class="social-info__links-item">
-                      <a href="" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    </li>
-                    <li class="social-info__links-item">
-                      <a href="" title="Twitter"><i class="fab fa-twitter"></i></a>
-                    </li>
-                    <li class="social-info__links-item">
-                      <a href="" title="Phone Number"><i class="fas fa-phone-alt"></i></a>
-                    </li>
-                    <li class="social-info__links-item">
-                      <a href="" title="Skype"><i class="fab fa-skype"></i></a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-padding">
-            <div class="card">
-              <div class="social-info">
-                <img class="social-info__avatar" src="statics/users/avatar-3.jpg" alt="User Avatar">
-                <div class="social-info__content">
-                  <h5 class="social-info__name">Ralph L. Alva</h5>
-                  <p class="text-muted q-mb-md">Webdeveloper</p>
-                  <ul class="social-info__links">
-                    <li class="social-info__links-item">
-                      <a href="" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    </li>
-                    <li class="social-info__links-item">
-                      <a href="" title="Twitter"><i class="fab fa-twitter"></i></a>
-                    </li>
-                    <li class="social-info__links-item">
-                      <a href="" title="Phone Number"><i class="fas fa-phone-alt"></i></a>
-                    </li>
-                    <li class="social-info__links-item">
-                      <a href="" title="Skype"><i class="fab fa-skype"></i></a>
-                    </li>
-                  </ul>
+              <div class="row justify-center q-col-gutter-md" v-if="followers.length>0">
+                <div class="col-lg-3" v-for="user in followers">
+                  <q-card class="no-shadow text-center">
+                    <q-avatar class="bg-white avatar-user" size="100px">
+                      <img :src="user.user.mainImage">
+                    </q-avatar>
+                    <q-card-section class="text-subtitle2 ">
+                      <div>{{user.user.fullName}}</div>
+                      <!-- <q-rating :value="5" readonly color="yellow" :max="5" /> -->
+                      <div class="q-mt-xs" >
+                        <q-btn color="primary" class="btn-more" no-caps flat label="Ver más" @click="openProfile(user.user)"/>
+                      </div>
+                    </q-card-section>
+                  </q-card>
+
+                  <q-dialog v-model="card.open">
+                    <card-user :card="card"></card-user>
+                  </q-dialog>
                 </div>
               </div>
             </div>
@@ -302,6 +176,9 @@
   import deviceSessions from '@imagina/qanalytics/_components/admin/google-analytics/deviceSessions'
   import browserSessions from '@imagina/qanalytics/_components/admin/google-analytics/browserSessions'
   import mostVisitedPages from '@imagina/qanalytics/_components/admin/google-analytics/mostVisitedPages'
+  import notification from '@imagina/qanalytics/_components/info/notification'
+  import orderStatusHistory from '@imagina/qanalytics/_components/admin/orders/orderStatusHistory'
+  import cardUser from 'src/components/qmarketplace/cardUser'
 
   export default {
     name: 'PageIndex',
@@ -309,10 +186,65 @@
       viewsAndPages,
       deviceSessions,
       browserSessions,
-      mostVisitedPages
+      mostVisitedPages,
+      notification,
+      orderStatusHistory,
+      cardUser
     },
     data() {
       return {
+        model: '',
+        totalPolls:0,
+        totalSolds:0,
+        totalFollowers:0,
+        followers:0,
+        card: {
+          open: false,
+          info: [],
+        },
+        soldProducts:[],
+        options: [],
+        chartOptions: {
+          chart: {
+            type: 'column',
+            backgroundColor: null,
+          },
+          title: {
+            text: '',
+          },
+          xAxis: {
+            categories: [], //Answers
+            title: {
+              text: null,
+              style: {
+                color: '#f96353'
+              }
+            },
+            labels: {
+              style: {
+                fontSize: '12px',
+                color: '#333333',
+              }
+            },
+            gridLineWidth: 0,
+            crosshair: true
+          },
+          yAxis: {
+            gridLineWidth: 1,
+            min: 0,
+            title: {
+              text: ''
+            },
+            labels: {
+              overflow: 'justify'
+            }
+          },
+          credits: {
+            enabled: false
+          },
+          colors: ['#f96353'],
+          series: []
+        },
         success:false,
         month1: null,
         month1End: null,
@@ -336,10 +268,50 @@
         this.month2End = this.$clone(this.$moment(this.month2).add(1, 'month').format('YYYY-MM-DD HH:mm'))
         this.success = true
         console.warn(this.month2, this.month1)
+        this.marketplaceReport()
+      },
+      marketplaceReport(){
+        let params = {
+          params: {
+            filter:{
+              storeId: 1,
+              startDate: this.startDate,
+              endDate: this.endDate,
+              totalFollowers: true,
+              followers: true,
+              soldProducts: true,
+              totalPolls: true,
+              totalSold:true
+            }
+          }
+        };//params
+        this.$crud.index("apiRoutes.qanalytics.marketplace",params).then(response => {
+          this.totalFollowers = response.data.totalFollowers;
+          this.followers = response.data.followers;
+          this.soldProducts = response.data.soldProducts;
+          this.totalPolls = response.data.totalPolls;
+          this.totalSolds = 0;
+          let totalSold = this.$clone(response.data.totalSold)
+          this.chartOptions.xAxis.categories = totalSold.dates
+          this.chartOptions.series = [
+            {
+              name: 'Ventas',
+              data: totalSold.sold
+            }
+          ];
+          for(var i=0; i<totalSold.sold.length; i++){
+            this.totalSolds += totalSold.sold[i];
+          }
+        });
       },
       getDates(initDate, endDate = this.$moment().format('YYYY-MM-DD')) {
         this.startDate = initDate;
         this.endDate = endDate;
+      },
+      openProfile(result) {
+        this.card.open = true;
+        this.card.info = result;
+        this.card.info.fields = this.$helper.convertToFrontField(this.card.info.fields);
       }
     }
   }
@@ -349,13 +321,39 @@
   @import "~src/css/app.styl"
 
   .q-page
+    .col-padding
+      margin-bottom 20px
+
     .card
       background-color $white
       color $text-primary
       border 1px solid rgba(112, 112, 112, 0.12)
       border-radius 3px
+      height 100%
       padding 20px
-      margin-bottom 20px
+
+      .q-card
+        box-shadow none
+        border-radius 0
+        margin 0
+
+        .box
+          box-shadow none
+          border-radius 0
+          border none
+          padding 0
+
+          .col-12
+            padding 0
+
+          .text-h6
+            font-size 16px
+
+            i
+              display none
+
+          div[data-highcharts-chart]
+            height 360px !important
 
       &__title
         font-size 16px
@@ -390,8 +388,6 @@
           margin-top 20px
 
       &--general
-        min-height 507px
-
         .card__number-digit
           font-weight 500
           margin 4px 0 7px
